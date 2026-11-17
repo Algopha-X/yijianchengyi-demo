@@ -1,0 +1,214 @@
+{
+  "schemaVersion": "1.0",
+  "id": "poster-modern-v1",
+  "version": 1,
+  "name": "现代几何活动海报",
+  "scenario": "poster",
+  "style": "modern",
+  "intentTypes": [
+    "event",
+    "announcement",
+    "record"
+  ],
+  "canvas": {
+    "width": 1080,
+    "height": 1440,
+    "background": "#173D35"
+  },
+  "fields": {
+    "title": {
+      "label": "标题",
+      "question": "作品标题是什么？",
+      "required": true,
+      "requiredFor": [],
+      "maxChars": 28,
+      "maxLines": 3,
+      "fontFamily": "Noto Sans SC",
+      "fontWeight": 700,
+      "fontSize": 86,
+      "minFontSize": 56,
+      "lineHeight": 1.5,
+      "color": "#FFF9EA",
+      "align": "left",
+      "box": {
+        "x": 88,
+        "y": 172,
+        "width": 904,
+        "height": 270
+      }
+    },
+    "subtitle": {
+      "label": "副标题",
+      "question": "需要添加副标题吗？",
+      "required": false,
+      "requiredFor": [],
+      "maxChars": 36,
+      "maxLines": 1,
+      "fontFamily": "Noto Sans SC",
+      "fontWeight": 400,
+      "fontSize": 28,
+      "minFontSize": 24,
+      "lineHeight": 1.5,
+      "color": "#F3B669",
+      "align": "left",
+      "box": {
+        "x": 88,
+        "y": 100,
+        "width": 740,
+        "height": 52
+      }
+    },
+    "body": {
+      "label": "正文",
+      "question": "请提供活动介绍或作品正文。",
+      "required": true,
+      "requiredFor": [],
+      "maxChars": 160,
+      "maxLines": 4,
+      "fontFamily": "Noto Sans SC",
+      "fontWeight": 400,
+      "fontSize": 32,
+      "minFontSize": 24,
+      "lineHeight": 1.5,
+      "color": "#FFF9EA",
+      "align": "left",
+      "box": {
+        "x": 88,
+        "y": 972,
+        "width": 904,
+        "height": 190
+      }
+    },
+    "time": {
+      "label": "时间",
+      "question": "活动什么时候举办？",
+      "required": false,
+      "requiredFor": [
+        "event"
+      ],
+      "maxChars": 40,
+      "maxLines": 1,
+      "fontFamily": "Noto Sans SC",
+      "fontWeight": 400,
+      "fontSize": 30,
+      "minFontSize": 24,
+      "lineHeight": 1.5,
+      "color": "#FFF9EA",
+      "align": "left",
+      "box": {
+        "x": 88,
+        "y": 1210,
+        "width": 904,
+        "height": 52
+      }
+    },
+    "location": {
+      "label": "地点",
+      "question": "活动在哪里举办？",
+      "required": false,
+      "requiredFor": [
+        "event"
+      ],
+      "maxChars": 40,
+      "maxLines": 1,
+      "fontFamily": "Noto Sans SC",
+      "fontWeight": 400,
+      "fontSize": 30,
+      "minFontSize": 24,
+      "lineHeight": 1.5,
+      "color": "#FFF9EA",
+      "align": "left",
+      "box": {
+        "x": 88,
+        "y": 1272,
+        "width": 904,
+        "height": 52
+      }
+    },
+    "organizer": {
+      "label": "主办方",
+      "question": "活动由谁主办？",
+      "required": false,
+      "requiredFor": [],
+      "maxChars": 40,
+      "maxLines": 1,
+      "fontFamily": "Noto Sans SC",
+      "fontWeight": 400,
+      "fontSize": 25,
+      "minFontSize": 20,
+      "lineHeight": 1.5,
+      "color": "#CDE0D4",
+      "align": "left",
+      "box": {
+        "x": 88,
+        "y": 1340,
+        "width": 904,
+        "height": 44
+      }
+    }
+  },
+  "imageSlot": {
+    "required": false,
+    "fit": "cover",
+    "box": {
+      "x": 88,
+      "y": 510,
+      "width": 904,
+      "height": 400
+    }
+  },
+  "withoutImage": {
+    "body": {
+      "x": 88,
+      "y": 550,
+      "width": 904,
+      "height": 580
+    }
+  },
+  "decorations": [
+    {
+      "shape": "rectangle",
+      "box": {
+        "x": 0,
+        "y": 0,
+        "width": 22,
+        "height": 1440
+      },
+      "fill": "#F3B669",
+      "opacity": 1.0
+    },
+    {
+      "shape": "rectangle",
+      "box": {
+        "x": 88,
+        "y": 72,
+        "width": 80,
+        "height": 8
+      },
+      "fill": "#F3B669",
+      "opacity": 1.0
+    },
+    {
+      "shape": "rectangle",
+      "box": {
+        "x": 88,
+        "y": 1178,
+        "width": 904,
+        "height": 2
+      },
+      "fill": "#6E9483",
+      "opacity": 0.7
+    },
+    {
+      "shape": "ellipse",
+      "box": {
+        "x": 848,
+        "y": 72,
+        "width": 144,
+        "height": 144
+      },
+      "fill": "#F3B669",
+      "opacity": 0.16
+    }
+  ]
+}

@@ -1,0 +1,336 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ycy:template:v1",
+  "title": "一键成艺模板 v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "name",
+    "scenario",
+    "style",
+    "intentTypes",
+    "canvas",
+    "fields",
+    "imageSlot",
+    "withoutImage",
+    "decorations"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^(poster|article-image)-(fresh|asymmetric|lively|elegant|modern|retro)-v[1-9][0-9]*$"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60
+    },
+    "scenario": {
+      "enum": [
+        "poster",
+        "article_image"
+      ]
+    },
+    "style": {
+      "enum": [
+        "fresh",
+        "asymmetric",
+        "lively",
+        "elegant",
+        "modern",
+        "retro"
+      ]
+    },
+    "intentTypes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "event",
+          "announcement",
+          "record"
+        ]
+      }
+    },
+    "canvas": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "width",
+        "height",
+        "background"
+      ],
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 320,
+          "maximum": 4000
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 320,
+          "maximum": 4000
+        },
+        "background": {
+          "$ref": "#/$defs/color"
+        }
+      }
+    },
+    "fields": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "subtitle",
+        "body",
+        "time",
+        "location",
+        "organizer"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/textField"
+        },
+        "subtitle": {
+          "$ref": "#/$defs/textField"
+        },
+        "body": {
+          "$ref": "#/$defs/textField"
+        },
+        "time": {
+          "$ref": "#/$defs/textField"
+        },
+        "location": {
+          "$ref": "#/$defs/textField"
+        },
+        "organizer": {
+          "$ref": "#/$defs/textField"
+        }
+      }
+    },
+    "imageSlot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "fit",
+        "box"
+      ],
+      "properties": {
+        "required": {
+          "const": false
+        },
+        "fit": {
+          "enum": [
+            "cover",
+            "contain"
+          ]
+        },
+        "box": {
+          "$ref": "#/$defs/box"
+        }
+      }
+    },
+    "withoutImage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "body"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/box"
+        },
+        "subtitle": {
+          "$ref": "#/$defs/box"
+        },
+        "body": {
+          "$ref": "#/$defs/box"
+        },
+        "time": {
+          "$ref": "#/$defs/box"
+        },
+        "location": {
+          "$ref": "#/$defs/box"
+        },
+        "organizer": {
+          "$ref": "#/$defs/box"
+        }
+      }
+    },
+    "decorations": {
+      "type": "array",
+      "maxItems": 30,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "shape",
+          "box",
+          "fill",
+          "opacity"
+        ],
+        "properties": {
+          "shape": {
+            "enum": [
+              "rectangle",
+              "ellipse"
+            ]
+          },
+          "box": {
+            "$ref": "#/$defs/box"
+          },
+          "fill": {
+            "$ref": "#/$defs/color"
+          },
+          "opacity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "radius": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 300
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "color": {
+      "type": "string",
+      "pattern": "^#[0-9a-fA-F]{6}$"
+    },
+    "box": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ],
+      "properties": {
+        "x": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "y": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "textField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "question",
+        "required",
+        "requiredFor",
+        "maxChars",
+        "maxLines",
+        "fontFamily",
+        "fontWeight",
+        "fontSize",
+        "minFontSize",
+        "lineHeight",
+        "color",
+        "align",
+        "box"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "question": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "requiredFor": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "event",
+              "announcement",
+              "record"
+            ]
+          }
+        },
+        "maxChars": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5000
+        },
+        "maxLines": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "fontFamily": {
+          "const": "Noto Sans SC"
+        },
+        "fontWeight": {
+          "enum": [
+            400,
+            700
+          ]
+        },
+        "fontSize": {
+          "type": "integer",
+          "minimum": 12,
+          "maximum": 200
+        },
+        "minFontSize": {
+          "type": "integer",
+          "minimum": 12,
+          "maximum": 200
+        },
+        "lineHeight": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 2.5
+        },
+        "color": {
+          "$ref": "#/$defs/color"
+        },
+        "align": {
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ]
+        },
+        "box": {
+          "$ref": "#/$defs/box"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+name: ycy-production
+services:
+  app:
+    build: .
+    init: true
+    env_file: .env.production
+    environment:
+      APP_ENV: production
+      COOKIE_SECURE: "true"
+      DATA_DIR: /app/data
+      DATABASE_PATH: /app/data/app.db
+      JOB_CONCURRENCY: "2"
+      JOB_QUEUE_LIMIT: "20"
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - production-data:/app/data
+    shm_size: 512mb
+    restart: unless-stopped
+volumes:
+  production-data:

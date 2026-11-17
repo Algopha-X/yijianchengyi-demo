@@ -1,0 +1,23 @@
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+import { ensureSession, errorText, request } from '../api/client'
+import { useServiceStore } from '../stores/service'
+const serviceStore = useServiceStore()
+interface State { llmMode: 'mock' | 'real'; imageMode: 'mock' | 'real'; llmConfigured: boolean; imageConfigured: boolean; verificationMode: string; mailConfigured: boolean; jobCounts: Record<string, number>; userCount: number; storageBytes: number; imageRequests: number; recentJobs: { id: string; kind: string; status: string; stage: string; createdAt: string; failed: boolean }[] }
+const state = ref<State | null>(null), llm = ref<'mock' | 'real'>('mock'), image = ref<'mock' | 'real'>('mock')
+const error = ref(''), message = ref(''), busy = ref(false), confirmation = ref(false)
+const labels: Record<string, string> = { queued: '排队中', running: '处理中', succeeded: '已完成', failed: '失败', superseded: '被新版本替代' }
+async function load() {
+  busy.value = true; error.value = ''
+  try { await ensureSession(); state.value = await request<State>('/api/v2/admin/status'); llm.value = state.value.llmMode; image.value = state.value.imageMode }
+  catch (cause) { error.value = errorText(cause) } finally { busy.value = false }
+}
+async function save() {
+  busy.value = true; error.value = ''
+  try { const result = await request<State & { message: string }>('/api/v2/admin/services', { method: 'POST', body: JSON.stringify({ llmMode: llm.value, imageMode: image.value }) }); state.value = result; message.value = result.message; confirmation.value = false; await serviceStore.connect() }
+  catch (cause) { error.value = errorText(cause) } finally { busy.value = false }
+}
+onMounted(load)
+</script>
+<template><section class="security-panel operations-panel"><div class="label-row"><h2>服务与运行情况</h2><button class="text-button" :disabled="busy" @click="load">刷新运行情况</button></div><div v-if="error" class="error-card" role="alert">{{ error }}</div><p v-if="message" class="success-notice" role="status">{{ message }}</p><p v-if="busy && !state" role="status">正在读取运行情况…</p><template v-if="state"><dl class="export-info"><div><dt>账号数量</dt><dd>{{ state.userCount }}</dd></div><div><dt>图片存储</dt><dd>{{ (state.storageBytes / 1024 / 1024).toFixed(2) }} MiB</dd></div><div><dt>图片请求</dt><dd>{{ state.imageRequests }} 个在途</dd></div><div><dt>验证码</dt><dd>{{ state.verificationMode === 'development' ? '开发模式，未真实发送' : state.mailConfigured ? '邮件配置已填写' : '邮件配置不完整' }}</dd></div></dl><form class="operations-modes" @submit.prevent="confirmation = true"><label>文字服务<select v-model="llm" :disabled="busy"><option value="mock">Mock 演示</option><option value="real">真实模型</option></select><small>{{ state.llmConfigured ? '后端配置已填写' : '真实模型尚未配置' }}</small></label><label>图片服务<select v-model="image" :disabled="busy"><option value="mock">Mock 占位图</option><option value="real">真实文生图</option></select><small>{{ state.imageConfigured ? '后端配置已填写' : '真实图像服务尚未配置' }}</small></label><button class="button outline" :disabled="busy || (llm === state.llmMode && image === state.imageMode)">切换运行模式</button></form><p class="field-help">配置状态不代表实际供应商调用已经通过。队列空闲时才能切换；真实模式配置不完整会报错。重启后恢复服务器配置。</p><details><summary>最近生成记录（最多 50 条）</summary><p v-if="!state.recentJobs.length" class="field-help">暂无生成任务。</p><div class="user-table"><table><thead><tr><th>任务编号</th><th>类型</th><th>状态</th><th>创建时间</th></tr></thead><tbody><tr v-for="job in state.recentJobs" :key="job.id"><td :title="job.id">{{ job.id.slice(0, 8) }}</td><td>{{ job.kind === 'render' ? '排版' : '内容分析' }}</td><td>{{ labels[job.status] || job.status }}</td><td>{{ new Date(job.createdAt).toLocaleString('zh-CN') }}</td></tr></tbody></table></div></details></template><div v-if="confirmation" class="management-modal" role="dialog" aria-modal="true" aria-label="确认切换服务模式"><div class="management-dialog"><h2>确认切换运行模式？</h2><p>文字服务：{{ llm === 'mock' ? 'Mock 演示' : '真实模型' }}；图片服务：{{ image === 'mock' ? 'Mock 占位图' : '真实文生图' }}。</p><p>此操作不会发送模型请求。后续生成将使用新的模式，配置不足会明确报错。</p><p v-if="error" class="error-card" role="alert">{{ error }}</p><div class="inline-actions"><button class="button primary" :disabled="busy" @click="save">确认切换</button><button class="button outline" :disabled="busy" @click="confirmation = false">取消</button></div></div></div></section></template>
+<style scoped>.operations-modes{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin-top:24px}.operations-modes label{display:flex;flex-direction:column;gap:8px;font-size:13px}.operations-modes select{padding:10px;border:1px solid #d9e0d5;border-radius:6px;background:white}.operations-modes small{font-size:11px;color:#788276}.operations-panel details{margin-top:20px}</style>

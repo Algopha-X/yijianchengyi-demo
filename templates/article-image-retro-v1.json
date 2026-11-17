@@ -1,0 +1,214 @@
+{
+  "schemaVersion": "1.0",
+  "id": "article-image-retro-v1",
+  "version": 1,
+  "name": "复古刊头横版配图",
+  "scenario": "article_image",
+  "style": "retro",
+  "intentTypes": [
+    "event",
+    "announcement",
+    "record"
+  ],
+  "canvas": {
+    "width": 1200,
+    "height": 675,
+    "background": "#EFE4CB"
+  },
+  "fields": {
+    "title": {
+      "label": "标题",
+      "question": "作品标题是什么？",
+      "required": true,
+      "requiredFor": [],
+      "maxChars": 36,
+      "maxLines": 2,
+      "fontFamily": "Noto Sans SC",
+      "fontWeight": 700,
+      "fontSize": 68,
+      "minFontSize": 42,
+      "lineHeight": 1.4,
+      "color": "#3B2F27",
+      "align": "left",
+      "box": {
+        "x": 65,
+        "y": 65,
+        "width": 1070,
+        "height": 125
+      }
+    },
+    "subtitle": {
+      "label": "副标题",
+      "question": "需要添加副标题吗？",
+      "required": false,
+      "requiredFor": [],
+      "maxChars": 40,
+      "maxLines": 1,
+      "fontFamily": "Noto Sans SC",
+      "fontWeight": 400,
+      "fontSize": 26,
+      "minFontSize": 20,
+      "lineHeight": 1.4,
+      "color": "#8E332D",
+      "align": "left",
+      "box": {
+        "x": 65,
+        "y": 208,
+        "width": 1070,
+        "height": 40
+      }
+    },
+    "body": {
+      "label": "正文",
+      "question": "请提供需要排版的正文。",
+      "required": true,
+      "requiredFor": [],
+      "maxChars": 128,
+      "maxLines": 5,
+      "fontFamily": "Noto Sans SC",
+      "fontWeight": 400,
+      "fontSize": 26,
+      "minFontSize": 20,
+      "lineHeight": 1.4,
+      "color": "#3B2F27",
+      "align": "left",
+      "box": {
+        "x": 65,
+        "y": 295,
+        "width": 670,
+        "height": 190
+      }
+    },
+    "time": {
+      "label": "时间",
+      "question": "活动什么时候举办？",
+      "required": false,
+      "requiredFor": [
+        "event"
+      ],
+      "maxChars": 40,
+      "maxLines": 1,
+      "fontFamily": "Noto Sans SC",
+      "fontWeight": 400,
+      "fontSize": 22,
+      "minFontSize": 18,
+      "lineHeight": 1.4,
+      "color": "#3B2F27",
+      "align": "left",
+      "box": {
+        "x": 65,
+        "y": 510,
+        "width": 1070,
+        "height": 34
+      }
+    },
+    "location": {
+      "label": "地点",
+      "question": "活动在哪里举办？",
+      "required": false,
+      "requiredFor": [
+        "event"
+      ],
+      "maxChars": 40,
+      "maxLines": 1,
+      "fontFamily": "Noto Sans SC",
+      "fontWeight": 400,
+      "fontSize": 22,
+      "minFontSize": 18,
+      "lineHeight": 1.4,
+      "color": "#3B2F27",
+      "align": "left",
+      "box": {
+        "x": 65,
+        "y": 554,
+        "width": 1070,
+        "height": 34
+      }
+    },
+    "organizer": {
+      "label": "主办方",
+      "question": "活动由谁主办？",
+      "required": false,
+      "requiredFor": [],
+      "maxChars": 40,
+      "maxLines": 1,
+      "fontFamily": "Noto Sans SC",
+      "fontWeight": 400,
+      "fontSize": 22,
+      "minFontSize": 18,
+      "lineHeight": 1.4,
+      "color": "#3B2F27",
+      "align": "left",
+      "box": {
+        "x": 65,
+        "y": 598,
+        "width": 1070,
+        "height": 34
+      }
+    }
+  },
+  "imageSlot": {
+    "required": false,
+    "fit": "contain",
+    "box": {
+      "x": 805,
+      "y": 295,
+      "width": 330,
+      "height": 190
+    }
+  },
+  "withoutImage": {
+    "body": {
+      "x": 65,
+      "y": 295,
+      "width": 1070,
+      "height": 190
+    }
+  },
+  "decorations": [
+    {
+      "shape": "rectangle",
+      "box": {
+        "x": 65,
+        "y": 35,
+        "width": 1070,
+        "height": 4
+      },
+      "fill": "#3B2F27",
+      "opacity": 1.0
+    },
+    {
+      "shape": "rectangle",
+      "box": {
+        "x": 65,
+        "y": 265,
+        "width": 1070,
+        "height": 6
+      },
+      "fill": "#3B2F27",
+      "opacity": 1.0
+    },
+    {
+      "shape": "rectangle",
+      "box": {
+        "x": 65,
+        "y": 490,
+        "width": 1070,
+        "height": 2
+      },
+      "fill": "#8E332D",
+      "opacity": 1.0
+    },
+    {
+      "shape": "rectangle",
+      "box": {
+        "x": 65,
+        "y": 645,
+        "width": 1070,
+        "height": 3
+      },
+      "fill": "#3B2F27",
+      "opacity": 1.0
+    }
+  ]
+}
