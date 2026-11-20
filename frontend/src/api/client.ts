@@ -40,7 +40,13 @@ export async function request<T>(path: string, init: RequestInit = {}): Promise<
     sessionScope = scope
   }
   if (response.status === 204) return undefined as T
-  return response.json() as Promise<T>
+  try { return await response.json() as T }
+  catch (cause) {
+    if (cause instanceof DOMException && cause.name === 'AbortError') throw cause
+    throw new ApiError(response.status, 'INVALID_RESPONSE',
+      '服务响应不完整，请重新操作；若持续出现，请检查服务是否正常启动。', {},
+      response.headers.get('X-Request-ID') || '')
+  }
 }
 
 export function errorText(error: unknown): string {

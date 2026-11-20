@@ -60,9 +60,14 @@ export function useCreator() {
   const currentPreview = computed(() => !!task.value?.previewAssetId && task.value.previewRevision === task.value.revision && !dirty.value && !job.value && !restoringJob.value)
   const canConfirm = computed(() => !!task.value?.analysis && !dirty.value && !sessionLost.value && !task.value.analysis.missingFields.length &&
     !!task.value.templateId && task.value.analysis.facts.every(fact => checked.value.includes(fact.id)))
-  const saveLabel = computed(() => sessionLost.value ? '会话已失效，文字已保留' : conflict.value ? '版本冲突，请处理' :
-    localStorageError.value ? '浏览器暂存失败，请及时保存' : saveError.value ? '服务保存失败，本地副本已保留' : saving.value ? '正在保存…' :
-    dirty.value ? task.value ? '有修改待同步，本地已暂存' : '已暂存到此浏览器，尚未保存到服务' : task.value ? '已保存到本机服务' : '新作品尚未保存')
+  const saveLabel = computed(() => {
+    if (sessionLost.value) return '会话已失效，文字已保留'
+    if (conflict.value) return '版本冲突，请处理'
+    if (saveError.value) return localStorageError.value ? '服务保存和浏览器暂存均失败，请保留文字并重试' : '服务保存失败，本地副本已保留'
+    if (saving.value) return localStorageError.value ? '正在保存；浏览器暂存不可用' : '正在保存…'
+    if (localStorageError.value) return task.value && !dirty.value ? '已保存到本机服务；浏览器暂存不可用' : '浏览器暂存失败，请及时保存'
+    return dirty.value ? task.value ? '有修改待同步，本地已暂存' : '已暂存到此浏览器，尚未保存到服务' : task.value ? '已保存到本机服务' : '新作品尚未保存'
+  })
   const progressLabel = computed(() => job.value ? stageLabels[job.value.stage] : restoringJob.value ? '正在恢复任务状态' : '')
   const recoveryText = computed(() => recovered.value ? recovered.value.rawText + '\n\n' + Object.entries(recovered.value.fields).map(([key, value]) => key + ': ' + value).join('\n') : '')
 
@@ -335,7 +340,7 @@ export function useCreator() {
   window.addEventListener('beforeunload', leave)
   onBeforeUnmount(() => { disposed = true; stop(); pollAbort.abort(); if (timer) clearTimeout(timer); window.removeEventListener('beforeunload', leave) })
   return { task, draft, templates, visibleTemplates, template, loading, busy, operation, error, requestId, conflict,
-    saving, saveError, dirty, recovered, recoveryText, checked, job, waitLong, step, currentPreview, canConfirm,
+    saving, saveError, localStorageError, dirty, recovered, recoveryText, checked, job, waitLong, step, currentPreview, canConfirm,
     saveLabel, progressLabel, initialize, analyze, confirmAndRender, save, chooseTemplate, sample,
     restore, discardRecovery, reloadServer, upload, removeImage, download, fieldRequired, changeScenario, retryJob,
     sessionLost, reconnect, crossSessionRecovery, restoringJob, styleFilter, recommendedIds, beforeFields, proposedFields, keepField, exportScale, prepareLayout, applyLayout }

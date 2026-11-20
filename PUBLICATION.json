@@ -1,7 +1,7 @@
 {
   "format": "independent-source-snapshot",
   "sourceProject": "G15 一键成艺课程项目及本地演示扩展",
-  "sourceCommit": "25ed444434b527039e5de96d5dd58b288b476b16",
+  "sourceCommit": "c4c305e4a96e974089d425e58e28cfa429c8c28c",
   "excluded": [
     "GitLab成员与认领台账",
     "GitLab内部CI/治理及验收记录",
@@ -100,7 +100,7 @@
     "frontend/package-lock.json": "9ce6759cc10b2d64ae2c8fcf7df20e6ff6baf02903255c89988504e53f681a96",
     "frontend/package.json": "74999239595bae0c703d6544e2a31c68d591c1a226660bb3da4d6141bebad5d4",
     "frontend/src/App.vue": "83b11fc3cc3c60abf97e144e0398e7611ba892350c9933cff3b06af366a8892d",
-    "frontend/src/api/client.ts": "58e4d82855dc19a7708196c267fe2ad0e07f192671eb66928a73705b8d0c34c5",
+    "frontend/src/api/client.ts": "2a2d985a48c2422dc636d9dd4f280fd8b16f6636abb25dd6bbad0880a38ec0c2",
     "frontend/src/api/extensions.ts": "82ecabff44c7f5a89b3cd2a69a98ba3b51c349ca9bc60086817e39a4c71e0a80",
     "frontend/src/api/types.ts": "6568b55a11ffad7c25f36084eef68c1e2aa7e80a8e8f101f341233381b343777",
     "frontend/src/api/workbench.ts": "02ca50d3751c7cfb9f1a00d22a188fc8bab5f739be63154c630f4f96cc16671f",
@@ -112,10 +112,10 @@
     "frontend/src/components/OperationsPanel.vue": "ac7a234c824de242525786d50a5c0155a7e433eb8d4917b6c8b2572ae7a89c49",
     "frontend/src/composables/draftStorage.ts": "637533516522743cd3a22aabd710ccb7002cc643b57aaa056094e461a4769791",
     "frontend/src/composables/saveQueue.ts": "1fb999f11adddea5f2bdc8d337bd55ca3cf562ae6523d380aac216c7adbd6c3d",
-    "frontend/src/composables/useCreator.ts": "cb17bc81a7dd67b53375455d7e16cf51ee51d3d7476dd85dfcb84b532a744608",
+    "frontend/src/composables/useCreator.ts": "adfbda59ee3203c68e7d03ae23dccb267c1bb64cd57c5934826ba7bee688034e",
     "frontend/src/main.ts": "3dfe5229ef6accb55c449967a9aea3e08797292670b983ff06f9ec0b3e354840",
     "frontend/src/pages/AccountPage.vue": "d204884e71fd43f1e8dbb25dc0bfb472f5e9fbacdae605fc783f57b06f65f475",
-    "frontend/src/pages/CreatePage.vue": "303389c52f3b372723d1c6c5bf69efabf0d77bb54e163febe01ef5c7dcd17d92",
+    "frontend/src/pages/CreatePage.vue": "8f03a44622f7f70f6813d55f0c12a1a47ed51b7e3097533b5b65f70cb9d10826",
     "frontend/src/pages/HistoryPage.vue": "6dcd819f3e84e4fb3e56f46e52fd917e246a888148fbfa2732b47d0214a4e5d8",
     "frontend/src/pages/HomePage.vue": "80fb9140aee3c8579da617422d9239d241590c4d175f12d329ecae85919b7224",
     "frontend/src/pages/MaterialsPage.vue": "c6a7e4b21f28bf1dec2ab85e8d5c845f2e59b9a3f10433947f1449843211b535",
@@ -125,7 +125,7 @@
     "frontend/src/stores/service.ts": "f13af667f07c8c163c451431cfc380645a750e8cf535b68369d5f66c39330276",
     "frontend/src/style.css": "61bd7d38916d9995ff2cad5a7a341dd5c04cffc0193d9e187f50777e745494d3",
     "frontend/src/types/api.d.ts": "3ab482d68b48fdbf40baafc19393fd9d30aa00d1ee684136c944d23b7dc8036d",
-    "frontend/tests/api-client.spec.ts": "719a3dab0c35d4380632d5cb54bfcfd28fe58229fbb8f4239505b45c56f4f371",
+    "frontend/tests/api-client.spec.ts": "bb8d4d753ea4e21750adedb871158ab950ed71811518e8122e05eda6a51e5525",
     "frontend/tests/auto-save.spec.ts": "6a566f0eb58ce22885bd222b0a547b509d8324a3fb11ba853d62e41cc5320796",
     "frontend/tests/draft-storage.spec.ts": "1838cdd8b2cdf87b8dd3a92f109e34b6ca25c44d2236457af41232d5b75b2136",
     "frontend/tests/home.spec.ts": "b41f515aa556b602aefea1ebf9be0c81a7a91a7a1e53d45b11a7c64fd6f62123",
@@ -153,7 +153,7 @@
     "templates/poster-modern-v1.json": "e3b6f193254ed39e311c6b65f06fa969a3681cfd95a6bad85c9987a8b28bf347",
     "templates/poster-modern-v2.json": "96b3ff4fdda86b2be194b29b3cb97102489932a82ce15670b53d3a506ed4045d",
     "templates/poster-retro-v1.json": "bdc5c5ce93497ddbd64b49a3f4e2a36f393e9c7f01e1a7779b91878aa0a686c1",
-    "tests/e2e/test_demo_browser.py": "bbebf15e34826c8be12bec2c7720d4bfb0ccb7436fa0915df17f2fd3954c7031"
+    "tests/e2e/test_demo_browser.py": "0c62b9d75a4d69da7788c6e31ea51f214977333dc3bdfa6d9cb9b8bccf1478dc"
   },
   "preservedAuthorDisplayNames": [
     "AaronMu",
@@ -257,7 +257,7 @@
     "frontend/package-lock.json": "9ce6759cc10b2d64ae2c8fcf7df20e6ff6baf02903255c89988504e53f681a96",
     "frontend/package.json": "74999239595bae0c703d6544e2a31c68d591c1a226660bb3da4d6141bebad5d4",
     "frontend/src/App.vue": "83b11fc3cc3c60abf97e144e0398e7611ba892350c9933cff3b06af366a8892d",
-    "frontend/src/api/client.ts": "58e4d82855dc19a7708196c267fe2ad0e07f192671eb66928a73705b8d0c34c5",
+    "frontend/src/api/client.ts": "2a2d985a48c2422dc636d9dd4f280fd8b16f6636abb25dd6bbad0880a38ec0c2",
     "frontend/src/api/extensions.ts": "82ecabff44c7f5a89b3cd2a69a98ba3b51c349ca9bc60086817e39a4c71e0a80",
     "frontend/src/api/types.ts": "6568b55a11ffad7c25f36084eef68c1e2aa7e80a8e8f101f341233381b343777",
     "frontend/src/api/workbench.ts": "02ca50d3751c7cfb9f1a00d22a188fc8bab5f739be63154c630f4f96cc16671f",
@@ -269,10 +269,10 @@
     "frontend/src/components/OperationsPanel.vue": "ac7a234c824de242525786d50a5c0155a7e433eb8d4917b6c8b2572ae7a89c49",
     "frontend/src/composables/draftStorage.ts": "637533516522743cd3a22aabd710ccb7002cc643b57aaa056094e461a4769791",
     "frontend/src/composables/saveQueue.ts": "1fb999f11adddea5f2bdc8d337bd55ca3cf562ae6523d380aac216c7adbd6c3d",
-    "frontend/src/composables/useCreator.ts": "cb17bc81a7dd67b53375455d7e16cf51ee51d3d7476dd85dfcb84b532a744608",
+    "frontend/src/composables/useCreator.ts": "adfbda59ee3203c68e7d03ae23dccb267c1bb64cd57c5934826ba7bee688034e",
     "frontend/src/main.ts": "3dfe5229ef6accb55c449967a9aea3e08797292670b983ff06f9ec0b3e354840",
     "frontend/src/pages/AccountPage.vue": "d204884e71fd43f1e8dbb25dc0bfb472f5e9fbacdae605fc783f57b06f65f475",
-    "frontend/src/pages/CreatePage.vue": "303389c52f3b372723d1c6c5bf69efabf0d77bb54e163febe01ef5c7dcd17d92",
+    "frontend/src/pages/CreatePage.vue": "8f03a44622f7f70f6813d55f0c12a1a47ed51b7e3097533b5b65f70cb9d10826",
     "frontend/src/pages/HistoryPage.vue": "6dcd819f3e84e4fb3e56f46e52fd917e246a888148fbfa2732b47d0214a4e5d8",
     "frontend/src/pages/HomePage.vue": "80fb9140aee3c8579da617422d9239d241590c4d175f12d329ecae85919b7224",
     "frontend/src/pages/MaterialsPage.vue": "c6a7e4b21f28bf1dec2ab85e8d5c845f2e59b9a3f10433947f1449843211b535",
@@ -282,7 +282,7 @@
     "frontend/src/stores/service.ts": "f13af667f07c8c163c451431cfc380645a750e8cf535b68369d5f66c39330276",
     "frontend/src/style.css": "61bd7d38916d9995ff2cad5a7a341dd5c04cffc0193d9e187f50777e745494d3",
     "frontend/src/types/api.d.ts": "3ab482d68b48fdbf40baafc19393fd9d30aa00d1ee684136c944d23b7dc8036d",
-    "frontend/tests/api-client.spec.ts": "719a3dab0c35d4380632d5cb54bfcfd28fe58229fbb8f4239505b45c56f4f371",
+    "frontend/tests/api-client.spec.ts": "bb8d4d753ea4e21750adedb871158ab950ed71811518e8122e05eda6a51e5525",
     "frontend/tests/auto-save.spec.ts": "6a566f0eb58ce22885bd222b0a547b509d8324a3fb11ba853d62e41cc5320796",
     "frontend/tests/draft-storage.spec.ts": "1838cdd8b2cdf87b8dd3a92f109e34b6ca25c44d2236457af41232d5b75b2136",
     "frontend/tests/home.spec.ts": "b41f515aa556b602aefea1ebf9be0c81a7a91a7a1e53d45b11a7c64fd6f62123",
@@ -310,7 +310,7 @@
     "templates/poster-modern-v1.json": "e3b6f193254ed39e311c6b65f06fa969a3681cfd95a6bad85c9987a8b28bf347",
     "templates/poster-modern-v2.json": "96b3ff4fdda86b2be194b29b3cb97102489932a82ce15670b53d3a506ed4045d",
     "templates/poster-retro-v1.json": "bdc5c5ce93497ddbd64b49a3f4e2a36f393e9c7f01e1a7779b91878aa0a686c1",
-    "tests/e2e/test_demo_browser.py": "bbebf15e34826c8be12bec2c7720d4bfb0ccb7436fa0915df17f2fd3954c7031"
+    "tests/e2e/test_demo_browser.py": "0c62b9d75a4d69da7788c6e31ea51f214977333dc3bdfa6d9cb9b8bccf1478dc"
   },
   "publicationAdjustments": [
     {

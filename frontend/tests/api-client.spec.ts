@@ -23,6 +23,15 @@ describe('same-origin API client', () => {
     await expect(request('/api/tasks')).rejects.toBeInstanceOf(ApiError)
     await expect(request('/api/tasks')).rejects.toMatchObject({ code: 'NETWORK_ERROR', status: 0 })
   })
+  it.each(['<!doctype html><title>服务维护</title>', '{"items":'])('reports an incomplete service response without exposing a JSON parser error', async body => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(body, {
+      status: 200, headers: { 'X-Request-ID': 'incomplete-response' },
+    })))
+    await expect(request('/api/v2/tasks')).rejects.toMatchObject({
+      code: 'INVALID_RESPONSE', message: '服务响应不完整，请重新操作；若持续出现，请检查服务是否正常启动。',
+      requestId: 'incomplete-response',
+    })
+  })
   it('creates a fresh session on explicit retry after an expired cookie', async () => {
     const session = (scope: string) => new Response(JSON.stringify({ expiresAt: '2026-12-01T00:00:00Z' }), { headers: { 'X-Session-Scope': scope } })
     const fetch = vi.fn().mockResolvedValueOnce(session('owner_scope_A')).mockResolvedValueOnce(new Response('{}', { status: 401 })).mockResolvedValueOnce(session('owner_scope_B'))

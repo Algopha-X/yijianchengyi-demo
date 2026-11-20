@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 import AppIcon from '../components/AppIcon.vue'
 import MaterialPicker from '../components/MaterialPicker.vue'
@@ -16,6 +16,7 @@ const materialOpen = ref(false)
 const zoom = ref(100)
 const previewFailed = ref(false)
 const previewUrl = computed(() => currentPreview.value ? `/api/assets/${task.value!.previewAssetId}/file` : '')
+watch(previewUrl, () => { previewFailed.value = false; zoomOpen.value = false })
 const analysisValid = computed(() => !!task.value?.analysis && !dirty.value)
 const imageUrl = computed(() => draft.assetIds[0] ? `/api/assets/${draft.assetIds[0]}/file` : '')
 </script>
@@ -33,7 +34,7 @@ const imageUrl = computed(() => draft.assetIds[0] ? `/api/assets/${draft.assetId
             <div class="panel-heading"><div><span class="eyebrow">第一步</span><h2>先说说，你的想法。</h2></div><span class="number-tag">01</span></div>
             <label class="field-label">作品类型</label><div class="scenario-options"><button :class="{ selected: draft.scenario === 'poster' }" @click="c.changeScenario('poster')"><AppIcon name="file" :size="16" /><span>竖版海报<small>1080 × 1440</small></span></button><button :class="{ selected: draft.scenario === 'article_image' }" @click="c.changeScenario('article_image')"><AppIcon name="image" :size="16" /><span>公众号配图<small>1200 × 675</small></span></button></div>
             <label class="field-label" for="raw-text">创作内容<span class="required">必填</span></label><p class="field-help">写下标题、正文、时间、地点等信息，也可以从示例开始。</p>
-            <textarea id="raw-text" v-model="draft.rawText" class="raw-input" maxlength="10000" placeholder="例如：做一张校园读书会海报。标题：秋日读书会。时间：2026年11月7日14:00。地点：图书馆一楼交流区。正文：带上一本喜欢的书，分享你的阅读故事。" /><div class="input-foot"><span>已填 {{ Array.from(draft.rawText).length }} / 10000 字</span><span>{{ task ? '停止输入 0.8 秒后自动同步' : '已实时暂存到此浏览器；保存后进入作品列表' }}</span></div>
+            <textarea id="raw-text" v-model="draft.rawText" class="raw-input" maxlength="10000" placeholder="例如：做一张校园读书会海报。标题：秋日读书会。时间：2026年11月7日14:00。地点：图书馆一楼交流区。正文：带上一本喜欢的书，分享你的阅读故事。" /><div class="input-foot"><span>已填 {{ Array.from(draft.rawText).length }} / 10000 字</span><span>{{ task ? '停止输入 0.8 秒后自动同步' : c.localStorageError.value ? '浏览器暂存不可用，请点击“保存草稿”' : '新稿暂存在此浏览器；保存后进入历史作品' }}</span></div>
             <div v-if="!task" class="sample-actions"><span>试试示例</span><button class="sample-chip" @click="c.sample(true)">完整活动文案<AppIcon name="arrow" :size="13" /></button><button class="sample-chip" @click="c.sample(false)">缺失信息文案<AppIcon name="arrow" :size="13" /></button></div>
             <div class="recommendation-action"><button class="button outline" :disabled="!draft.rawText.trim()" @click="c.analyze">分析需求并推荐模板<AppIcon name="spark" :size="17" /></button><p class="field-help">先分析文字，再参考推荐手动选择模板。也可直接选择下方模板。</p></div>
             <div class="section-divider" />

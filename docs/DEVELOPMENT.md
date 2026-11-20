@@ -4,7 +4,7 @@
 
 后端要求 **Python 3.12**（项目约束为 `>=3.12,<3.13`），通过 uv 和 `backend/uv.lock` 安装；前端使用 Node.js 22、npm 和 `frontend/package-lock.json`。渲染及浏览器 E2E 还需要 Playwright Chromium。首次安装需要联网。
 
-本次 `npm ci` 报告 19 项依赖审计告警（16 项中等、1 项高、2 项严重）。当前未升级依赖或改写源锁文件；这个公开快照尚未通过生产安全验收，审计详情见 [验证记录](VALIDATION.md)。后续依赖升级应单独评估兼容性并复跑检查，不能把源码一致性校验当作安全验证。
+2026-11-20 的 `npm audit` 报告 19 项依赖告警（16 项中等、1 项高、2 项严重），生产依赖审计为 0 项。当前未升级依赖或改写源锁文件；这个公开快照尚未通过生产安全验收，审计详情见 [验证记录](VALIDATION.md)。后续依赖升级应单独评估兼容性并复跑检查，不能把源码一致性校验当作安全验证。
 
 | 目录或文件 | 用途 |
 | --- | --- |
@@ -67,7 +67,7 @@ Windows PowerShell 若拦截 `npm.ps1`，使用 `npm.cmd` 执行相同命令；�
 
 ## 可复现检查
 
-以下是实际测试入口。导出前源实现记录为后端 343 项、前端 19 项和正式浏览器 5 项；数量随代码变化，新的环境应以自己的命令输出为准。公开快照不含原项目的成员计分或内部验收检查。
+以下是实际测试入口。2026-11-20 在公开源码目录复跑前端 21 项、浏览器 6 项；后端 343 项是 2026-11-17 的历史验证，本轮未重跑。数量随代码变化，新的环境应以自己的命令输出为准。公开快照不含原项目的成员计分或内部验收检查。
 
 后端（在 `backend/`）：
 
@@ -96,7 +96,7 @@ npm run build
 uv run --frozen pytest ../tests/e2e/test_demo_browser.py -q
 ```
 
-这 5 项覆盖上传、PNG/JPG 实际解码和尺寸、刷新、缺失补齐、自动保存、多标签冲突、移动视口重试和公众号配图导出。每项创建独立浏览器 context，不操作已打开的用户页面；会在所测服务中创建自己的测试数据，产物写入 `data/browser-validation/`。更换地址可设置 `DEMO_BASE_URL`，例如 Linux 的 `DEMO_BASE_URL=http://127.0.0.1:8001 uv run --frozen pytest ../tests/e2e/test_demo_browser.py -q`。
+这 6 项覆盖上传、PNG/JPG 实际解码和尺寸、刷新、缺失补齐、自动保存、多标签冲突、移动视口重试、公众号配图导出，以及预览加载失败后重新生成恢复。每项创建独立浏览器 context，不操作已打开的用户页面；会在所测服务中创建自己的测试数据，产物默认写入 `data/browser-validation/`。更换地址可设置 `DEMO_BASE_URL`，例如 Linux 的 `DEMO_BASE_URL=http://127.0.0.1:8001 uv run --frozen pytest ../tests/e2e/test_demo_browser.py -q`。设置 `DEMO_ARTIFACTS_DIR` 可将截图、下载及记录写入独立目录；建议使用独立测试服务和数据目录。
 
 HTTP 流程验证和导出快照校验也从 `backend/` 执行：
 

@@ -10,7 +10,7 @@ from PIL import Image
 from playwright.sync_api import expect, sync_playwright
 
 ROOT = Path(__file__).resolve().parents[2]
-ARTIFACTS = ROOT / "data/browser-validation"
+ARTIFACTS = Path(os.getenv("DEMO_ARTIFACTS_DIR", str(ROOT / "data/browser-validation")))
 BASE_URL = os.getenv("DEMO_BASE_URL", "http://127.0.0.1:8000")
 
 
@@ -154,3 +154,25 @@ def test_article_image_type_selection_and_actual_export(context):
     with Image.open(path) as image:
         assert image.size == (1200, 675)
     page.screenshot(path=str(ARTIFACTS / "08-article.png"), full_page=True)
+
+
+def test_failed_preview_load_recovers_after_generating_a_new_version(context):
+    page = context.new_page()
+    begin(page)
+    page.route("**/api/assets/*/file", lambda route: route.abort())
+    for checkbox in page.locator(".fact-item input").all():
+        checkbox.check()
+    page.get_by_role("button", name="确认并生成作品", exact=False).click()
+    expect(page.get_by_role("button", name="下载 PNG", exact=True)).to_be_enabled(timeout=60_000)
+    expect(page.get_by_role("heading", name="预览图片加载失败", exact=True)).to_be_visible()
+    page.unroute("**/api/assets/*/file")
+    page.get_by_role("button", name="返回修改内容", exact=False).click()
+    page.locator("#field-title").fill("预览恢复后的读书会")
+    expect(page.get_by_text("已保存到本机服务", exact=False)).to_be_visible(timeout=10_000)
+    page.get_by_role("button", name="重新分析并检查", exact=False).click()
+    expect(page.get_by_role("button", name="重新分析并检查", exact=False)).to_be_enabled(timeout=30_000)
+    confirm_render(page)
+    expect(page.get_by_role("heading", name="预览图片加载失败", exact=True)).to_have_count(0)
+    page.locator(".preview-image-button").click()
+    expect(page.get_by_role("dialog", name="放大查看作品")).to_be_visible()
+    page.screenshot(path=str(ARTIFACTS / "09-preview-recovery.png"), full_page=True)
